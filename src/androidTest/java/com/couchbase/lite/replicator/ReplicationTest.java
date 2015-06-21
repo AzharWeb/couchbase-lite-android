@@ -741,7 +741,6 @@ public class ReplicationTest extends LiteTestCase {
         // add some documents - verify it has an attachment
         Document doc1 = createDocumentForPushReplication(doc1Id, doc1AttachName, contentType);
         String doc1Rev1 = doc1.getCurrentRevisionId();
-        database.clearDocumentCache();
         doc1 = database.getDocument(doc1.getId());
         assertTrue(doc1.getCurrentRevision().getAttachments().size() > 0);
 
@@ -797,9 +796,6 @@ public class ReplicationTest extends LiteTestCase {
         waitForPutCheckpointRequestWithSeq(dispatcher, 1);
 
         stopReplication(pullReplication);
-
-        // clear doc cache
-        database.clearDocumentCache();
 
         // make sure doc has attachments
         Document doc1Fetched = database.getDocument(doc1.getId());

@@ -192,7 +192,7 @@ public class LitePerfTestCase extends LiteTestCase {
                         startCBLite();
                         startDatabase();
                         //manager = new Manager(new LiteTestContext(), Manager.DEFAULT_OPTIONS);
-                        //database = manager.getDatabase(DEFAULT_TEST_DB);
+                        //database = manager.getStorageEngine(DEFAULT_TEST_DB);
                         //Run test
                         double ExecutionTime = runOne(kNumberOfDocuments, kSizeOfDocuments);
                         arrayResults.add(ExecutionTime);

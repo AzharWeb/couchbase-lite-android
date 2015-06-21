@@ -99,7 +99,7 @@ public class ViewsTest extends LiteTestCase {
     public void testDeleteView() {
         List<View> views = database.getAllViews();
         for (View view : views) {
-            database.deleteViewNamed(view.getName());
+            view.delete();
         }
 
         Assert.assertEquals(0, database.getAllViews().size());
@@ -126,15 +126,17 @@ public class ViewsTest extends LiteTestCase {
         Assert.assertEquals(1, database.getAllViews().size());
         Assert.assertEquals(view, database.getAllViews().get(0));
 
-        Status status = database.deleteViewNamed("viewToDelete");
-        Assert.assertEquals(Status.OK, status.getCode());
+        view.delete();
+        //Status status = database.deleteViewNamed("viewToDelete");
+        //Assert.assertEquals(Status.OK, status.getCode());
         Assert.assertEquals(0, database.getAllViews().size());
 
         View nullView = database.getExistingView("viewToDelete");
         Assert.assertNull("cached View is not deleted", nullView);
 
-        status = database.deleteViewNamed("viewToDelete");
-        Assert.assertEquals(Status.NOT_FOUND, status.getCode());
+        view.delete();
+        //status = database.deleteViewNamed("viewToDelete");
+        //Assert.assertEquals(Status.NOT_FOUND, status.getCode());
     }
 
     private RevisionInternal putDoc(Database db, Map<String,Object> props) throws CouchbaseLiteException {
@@ -710,7 +712,7 @@ public class ViewsTest extends LiteTestCase {
             value.put("rev", rev.getRevId());
             value.put("_conflicts", new ArrayList<String>());
             QueryRow queryRow = new QueryRow(rev.getDocId(), 0, rev.getDocId(), value, null, null);
-            queryRow.setDatabase(database);
+            //queryRow.setDatabase(database);
             expectedRow.add(queryRow);
         }
 
@@ -725,7 +727,6 @@ public class ViewsTest extends LiteTestCase {
         expectedRows.add(expectedRow.get(4));
 
         Map<String,Object> expectedQueryResult = createExpectedQueryResult(expectedRows, 0);
-
         Assert.assertEquals(expectedQueryResult, allDocs);
 
         // Start/end key query:
@@ -773,7 +774,8 @@ public class ViewsTest extends LiteTestCase {
         options = new QueryOptions();
         List<Object> docIds = new ArrayList<Object>();
         QueryRow expected2 = expectedRow.get(2);
-        docIds.add(expected2.getDocument().getId());
+        docIds.add(expected2.getDocumentId());
+        //docIds.add(expected2.getDocument().getId());
         options.setKeys(docIds);
         allDocs = database.getAllDocs(options);
         expectedRows = new ArrayList<QueryRow>();
@@ -936,7 +938,7 @@ public class ViewsTest extends LiteTestCase {
 
         // wait until indexing is (hopefully) done
         try {
-            Thread.sleep(1 * 1000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

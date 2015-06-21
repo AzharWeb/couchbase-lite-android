@@ -103,7 +103,7 @@ public class AttachmentsTest extends LiteTestCase {
         Map<String, Object> attachmentDictForSequence = database.getAttachmentsDictForSequenceWithContent(rev1.getSequence(), EnumSet.noneOf(Database.TDContentOptions.class));
         Assert.assertEquals(attachmentDict, attachmentDictForSequence);
 
-        RevisionInternal gotRev1 = database.getDocumentWithIDAndRev(rev1.getDocId(), rev1.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev1 = database.getDocument(rev1.getDocId(), rev1.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
         Map<String, Object> gotAttachmentDict = (Map<String, Object>) gotRev1.getProperties().get("_attachments");
         Assert.assertEquals(attachmentDict, gotAttachmentDict);
 
@@ -113,7 +113,7 @@ public class AttachmentsTest extends LiteTestCase {
         attachmentDictForSequence = database.getAttachmentsDictForSequenceWithContent(rev1.getSequence(), EnumSet.of(Database.TDContentOptions.TDIncludeAttachments));
         Assert.assertEquals(attachmentDict, attachmentDictForSequence);
 
-        gotRev1 = database.getDocumentWithIDAndRev(rev1.getDocId(), rev1.getRevId(), EnumSet.of(Database.TDContentOptions.TDIncludeAttachments));
+        gotRev1 = database.getDocument(rev1.getDocId(), rev1.getRevId(), EnumSet.of(Database.TDContentOptions.TDIncludeAttachments));
         gotAttachmentDict = (Map<String, Object>) gotRev1.getProperties().get("_attachments");
         Assert.assertEquals(attachmentDict, gotAttachmentDict);
 
@@ -240,7 +240,7 @@ public class AttachmentsTest extends LiteTestCase {
             throw new RuntimeException("Expected attachment dict to have 'follows' key");
         }
 
-        RevisionInternal rev1WithAttachments = database.getDocumentWithIDAndRev(rev1.getDocId(), rev1.getRevId(), contentOptions);
+        RevisionInternal rev1WithAttachments = database.getDocument(rev1.getDocId(), rev1.getRevId(), contentOptions);
         // Map<String,Object> rev1PropertiesPrime = rev1WithAttachments.getProperties();
         // rev1PropertiesPrime.put("foo", 2);
 
@@ -331,7 +331,7 @@ public class AttachmentsTest extends LiteTestCase {
         Assert.assertEquals(1, attachments.count());
 
         // Get the revision:
-        RevisionInternal gotRev1 = database.getDocumentWithIDAndRev(rev1.getDocId(), rev1.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev1 = database.getDocument(rev1.getDocId(), rev1.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
         Map<String, Object> gotAttachmentDict = (Map<String, Object>) gotRev1.getProperties().get("_attachments");
 
         Map<String, Object> innerDict = new HashMap<String, Object>();
@@ -383,7 +383,7 @@ public class AttachmentsTest extends LiteTestCase {
 
 
         // Get the updated revision:
-        RevisionInternal gotRev2 = database.getDocumentWithIDAndRev(rev2.getDocId(), rev2.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev2 = database.getDocument(rev2.getDocId(), rev2.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
         attachmentDict = (Map<String, Object>) gotRev2.getProperties().get("_attachments");
 
         innerDict = new HashMap<String, Object>();
@@ -420,7 +420,7 @@ public class AttachmentsTest extends LiteTestCase {
         Assert.assertEquals(3, rev3.getGeneration());
 
         // Get the updated revision:
-        RevisionInternal gotRev3 = database.getDocumentWithIDAndRev(rev3.getDocId(), rev3.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev3 = database.getDocument(rev3.getDocId(), rev3.getRevId(), EnumSet.noneOf(Database.TDContentOptions.class));
         attachmentDict = (Map<String, Object>) gotRev3.getProperties().get("_attachments");
         Assert.assertNull(attachmentDict);
 

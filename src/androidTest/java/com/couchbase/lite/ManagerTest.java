@@ -139,7 +139,7 @@ public class ManagerTest extends LiteTestCase {
 
         assertNotNull(doc);
 
-        RevisionInternal gotRev1 = database.getDocumentWithIDAndRev(doc.getId(), doc.getCurrentRevisionId(), EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev1 = database.getDocument(doc.getId(), doc.getCurrentRevisionId(), EnumSet.noneOf(Database.TDContentOptions.class));
     }
 
     // Test for pre-built database test from CBL Android 1.0.4

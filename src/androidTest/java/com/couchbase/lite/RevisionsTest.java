@@ -273,7 +273,7 @@ public class RevisionsTest extends LiteTestCase {
             expectedWinner = rev2b;
         }
 
-        RevisionInternal revFound = database.getDocumentWithIDAndRev(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal revFound = database.getDocument(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(expectedWinner.getId(), revFound.getRevId());
 
     }
@@ -290,7 +290,7 @@ public class RevisionsTest extends LiteTestCase {
         // rev3b should be picked as the winner since it has a longer branch
         SavedRevision expectedWinner = rev3b;
 
-        RevisionInternal revFound = database.getDocumentWithIDAndRev(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal revFound = database.getDocument(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(expectedWinner.getId(), revFound.getRevId());
 
     }
@@ -314,7 +314,7 @@ public class RevisionsTest extends LiteTestCase {
         SavedRevision rev9b = createRevisionWithRandomProps(rev8b, true);
         SavedRevision rev10b = createRevisionWithRandomProps(rev9b, true);
 
-        RevisionInternal revFound = database.getDocumentWithIDAndRev(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal revFound = database.getDocument(doc.getId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(rev10b.getId(), revFound.getRevId());
 
     }

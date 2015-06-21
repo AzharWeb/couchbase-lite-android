@@ -62,7 +62,7 @@ public class BulkDownloaderTest extends LiteTestCase {
         List<RevisionInternal> revs = new ArrayList<RevisionInternal>();
         Document doc = createDocumentForPushReplication("doc1", null, null);
         EnumSet<Database.TDContentOptions> contentOptions = EnumSet.noneOf(Database.TDContentOptions.class);
-        RevisionInternal revisionInternal = database.getDocumentWithIDAndRev(doc.getId(), doc.getCurrentRevisionId(), contentOptions);
+        RevisionInternal revisionInternal = database.getDocument(doc.getId(), doc.getCurrentRevisionId(), contentOptions);
         revs.add(revisionInternal);
 
         // countdown latch to make sure we got an error

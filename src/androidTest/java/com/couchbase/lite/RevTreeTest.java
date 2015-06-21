@@ -106,7 +106,7 @@ public class RevTreeTest extends LiteTestCase {
         database.forceInsert(other, otherHistory, null);
 
         // Fetch one of those phantom revisions with no body:
-        RevisionInternal rev2 = database.getDocumentWithIDAndRev(rev.getDocId(), "2-too", EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal rev2 = database.getDocument(rev.getDocId(), "2-too", EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(rev.getDocId(), rev2.getDocId());
         assertEquals("2-too", rev2.getRevId());
         //Assert.assertNull(rev2.getContent());
@@ -115,7 +115,7 @@ public class RevTreeTest extends LiteTestCase {
         assertEquals(8, database.getLastSequenceNumber());
 
         // Make sure the revision with the higher revID wins the conflict:
-        RevisionInternal current = database.getDocumentWithIDAndRev(rev.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal current = database.getDocument(rev.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(conflict, current);
 
         // Get the _changes feed and verify only the winner is in it:
@@ -240,7 +240,7 @@ public class RevTreeTest extends LiteTestCase {
     }
 
     private static void verifyHistory(Database db, RevisionInternal rev, List<String> history) {
-        RevisionInternal gotRev = db.getDocumentWithIDAndRev(rev.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal gotRev = db.getDocument(rev.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertEquals(rev, gotRev);
         assertEquals(rev.getProperties(), gotRev.getProperties());
 

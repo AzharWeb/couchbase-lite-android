@@ -57,7 +57,7 @@ public class CRUDOperationsTest extends LiteTestCase implements Database.ChangeL
         assertTrue(rev1.getRevId().startsWith("1-"));
 
         //read it back
-        RevisionInternal readRev = database.getDocumentWithIDAndRev(rev1.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        RevisionInternal readRev = database.getDocument(rev1.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertNotNull(readRev);
         Map<String,Object> readRevProps = readRev.getProperties();
         assertEquals(userProperties(readRevProps), userProperties(body.getProperties()));
@@ -74,7 +74,7 @@ public class CRUDOperationsTest extends LiteTestCase implements Database.ChangeL
         assertTrue(rev2.getRevId().startsWith("2-"));
 
         //read it back
-        readRev = database.getDocumentWithIDAndRev(rev2.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        readRev = database.getDocument(rev2.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertNotNull(readRev);
         assertEquals(userProperties(readRev.getProperties()), userProperties(body.getProperties()));
 
@@ -141,7 +141,7 @@ public class CRUDOperationsTest extends LiteTestCase implements Database.ChangeL
         assertTrue(gotExpectedError);
 
         // Read it back (should fail):
-        readRev = database.getDocumentWithIDAndRev(revD.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
+        readRev = database.getDocument(revD.getDocId(), null, EnumSet.noneOf(Database.TDContentOptions.class));
         assertNull(readRev);
 
         // Get Changes feed
